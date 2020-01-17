@@ -1,0 +1,24 @@
+{
+  "name": "authentication-node",
+  "version": "1.0.0",
+  "description": "Basic Authentication implemented using nodeJs\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdarshNaidu/Authentication-node.git"
+  },
+  "author": "Adarsh Naidu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdarshNaidu/Authentication-node/issues"
+  },
+  "homepage": "https://github.com/AdarshNaidu/Authentication-node#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.7"
+  }
+}
