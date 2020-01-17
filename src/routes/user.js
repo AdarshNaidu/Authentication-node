@@ -8,6 +8,15 @@ router.get('/users/me', auth, (req, res) => {
     res.send(req.user);
 })
 
+router.get('/users', async (req, res) => {
+    try{
+        const users = await User.find({});
+        res.send(users);
+    } catch(error){
+        res.status(500).send();
+    }
+})
+
 router.post('/users', (req, res) => {
     const user = new User(req.body);
     
@@ -29,7 +38,7 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
-router.patch('/users/:id',async (req, res) => {
+router.patch('/users/me', auth, async (req, res) => {
     try{
         const allowedUpdates = ['name', 'username', 'email', 'password']
         const updates = Object.keys(req.body);
@@ -45,17 +54,21 @@ router.patch('/users/:id',async (req, res) => {
             throw new Error("Error: Some updates not allowed")
         }
 
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const user = req.user;
+        updates.forEach((update) => user[update] = req.body[update]);
+        await user.save();
+
         res.send(user)
     } catch(error){
         res.status(500).send();
     }
 })
 
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/me', auth, async (req, res) => {
     try{
-        await User.deleteOne({ _id: req.params.id });
-        res.send();
+        await req.user.remove();
+        res.send(req.user);
     } catch(error) {
         res.status(500).send();
     }
