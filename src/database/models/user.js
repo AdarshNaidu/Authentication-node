@@ -5,13 +5,18 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     username: {
         type: String,
         required: true,
         trim: true,
         unique: true,
+        validate(value){
+            if(value.includes(" ")){
+                throw new Error("Error: Username cannot contain a space");
+            }
+        }
     },
     email: {
         type: String,
@@ -30,6 +35,6 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const User = new mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
