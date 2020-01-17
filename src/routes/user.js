@@ -18,7 +18,18 @@ router.post('/users', (req, res) => {
         res.status(201).send(user)
     }).catch((error) => {
         res.status(500).send(error);
+        console.log(error)
     })
+})
+
+router.post('/users/login', async (req, res) => {
+    try{
+        const user = await User.findByCredentials(req.body);
+        res.send(user);
+
+    } catch(error){
+        res.status(500).send(error)
+    }
 })
 
 router.patch('/users/:id',async (req, res) => {
