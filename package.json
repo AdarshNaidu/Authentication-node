@@ -19,6 +19,7 @@
   "homepage": "https://github.com/AdarshNaidu/Authentication-node#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.8.7"
+    "mongoose": "^5.8.7",
+    "validator": "^12.1.0"
   }
 }
