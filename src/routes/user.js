@@ -1,14 +1,11 @@
 const express = require('express');
 const User = require('../database/models/user.js');
+const auth = require('../middlware/auth.js');
 
 const router = express.Router();
 
-router.get('/users', (req, res) => {
-    User.find({  }).then((users) => {
-        res.send(users)
-    }).catch((error) => {
-        res.send(error);
-    })
+router.get('/users/me', auth, (req, res) => {
+    res.send(req.user);
 })
 
 router.post('/users', (req, res) => {
@@ -25,8 +22,8 @@ router.post('/users', (req, res) => {
 router.post('/users/login', async (req, res) => {
     try{
         const user = await User.findByCredentials(req.body);
-        res.send(user);
-
+        const token = user.generateAuthToken();
+        res.send({user, token});
     } catch(error){
         res.status(500).send(error)
     }
